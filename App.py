@@ -2,7 +2,7 @@ import streamlit as st
 import random
 
 # Set Page Title & Icon
-st.set_page_config(page_title="Republic Day 2026 by Pooja Chowdhary" , page_icon="🇮🇳")
+st.set_page_config(page_title="Republic Day 2026! by Pooja Chowdhary", page_icon="🇮🇳")
 
 # --- DATA BANK ---
 nuggets = [

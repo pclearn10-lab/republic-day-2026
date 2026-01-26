@@ -2,8 +2,9 @@ import streamlit as st
 import random
 
 # Set Page Title & Icon
-st.set_page_config(page_title="Republic Day 2026! by Pooja Chowdhary", page_icon="🇮🇳")
-
+st.set_page_config(page_title="Republic Day 2026!", page_icon="🇮🇳")
+St.write("---")
+St.dubheader("created with pride by Pooja Chowdhary")
 # --- DATA BANK ---
 nuggets = [
     "The Indian Constitution is the longest handwritten constitution in the world!",

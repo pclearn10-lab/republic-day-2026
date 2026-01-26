@@ -27,7 +27,7 @@ if name:
     st.balloons()
     
     # Generate Personalized Message
-    st.success(f"### Jai Hind, {name}! 🚩")
+    st.success(f"### Jai Hind, {name}! 🇮🇳")
     st.write(f"May the tricolor always fly high and our nation continue to prosper. Wishing you a very Happy 77th Republic Day!")
     
     # The "Nugget" Section

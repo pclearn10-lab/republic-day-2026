@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Teacher's Day - Certificate of Recognition</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --accent: #d97706;
+            --bg: #f8fafc;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .actions {
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        button:hover { opacity: 0.9; }
+
+        /* Certificate Layout */
+        #certificate {
+            width: 800px;
+            height: 560px;
+            background: #ffffff;
+            border: 12px solid var(--primary);
+            outline: 4px solid var(--accent);
+            outline-offset: -8px;
+            padding: 40px;
+            box-sizing: border-box;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+        .header-title {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 15px;
+        }
+        .subtitle {
+            font-size: 16px;
+            color: #64748b;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+        .honorific {
+            font-size: 20px;
+            font-style: italic;
+            color: #475569;
+        }
+        .teacher-name {
+            font-size: 38px;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 10px 0;
+            border-bottom: 2px solid #e2e8f0;
+            display: inline-block;
+            padding: 0 30px;
+        }
+        .subject-badge {
+            display: inline-block;
+            background-color: #eff6ff;
+            color: var(--primary);
+            padding: 6px 18px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 15px;
+            margin: 15px 0;
+        }
+        .citation {
+            font-size: 16px;
+            color: #334155;
+            line-height: 1.6;
+            max-width: 620px;
+            margin: 10px auto 30px auto;
+        }
+        .footer {
+            position: absolute;
+            bottom: 35px;
+            left: 40px;
+            right: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+        .sig-block {
+            border-top: 1px solid #94a3b8;
+            width: 200px;
+            padding-top: 6px;
+            font-size: 14px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="actions">
+        <button onclick="downloadPDF()">Download Certificate (PDF)</button>
+    </div>
+
+    <div id="certificate">
+        <div class="header-title">Certificate of Excellence</div>
+        <div class="subtitle">HAPPY TEACHER'S DAY</div>
+        
+        <div class="honorific" id="certAdj">The Most Inspiring</div>
+        <div class="teacher-name" id="certName">Respected Teacher</div>
+        <br>
+        <div class="subject-badge" id="certSubject">Department of Education</div>
+        
+        <div class="citation" id="certQualities">
+            For guiding us with patience, imparting wisdom, and making learning a joyful journey every single day.
+        </div>
+
+        <div class="footer">
+            <div class="sig-block">
+                <strong>Presented With Gratitude</strong><br>
+                By Your Students
+            </div>
+            <div style="font-size: 28px; color: var(--accent);">🎓</div>
+            <div class="sig-block">
+                <strong id="certDate">September 5, 2026</strong><br>
+                Teacher's Day Award
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Default subject qualities
+        const subjectDatabase = {
+            "Mathematics": "For making complex equations simple, developing analytical thinking, and proving that every problem has a solution.",
+            "Science": "For nurturing curiosity, unlocking the mysteries of nature, and turning every lesson into an exciting discovery.",
+            "English": "For inspiring articulate expression, fostering a love for literature, and empowering us through words.",
+            "Computer Science": "For demystifying technology, teaching logical precision, and shaping future digital innovators.",
+            "History": "For bringing historical moments to life, encouraging deep perspective, and connecting past wisdom to the present."
+        };
+
+        // URL Parameter Reader (Automated)
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        const name = urlParams.get('name') || "Respected Teacher";
+        const adj = urlParams.get('adj') || "The Most Inspiring";
+        const subject = urlParams.get('subject') || "Education";
+        const qualities = urlParams.get('qualities') || subjectDatabase[subject] || "For guiding us with dedication, patience, and shaping our future with knowledge.";
+
+        // Populate Certificate Elements
+        document.getElementById('certName').innerText = name;
+        document.getElementById('certAdj').innerText = adj;
+        document.getElementById('certSubject').innerText = "Department of " + subject;
+        document.getElementById('certQualities').innerText = qualities;
+
+        function downloadPDF() {
+            const element = document.getElementById('certificate');
+            const opt = {
+                margin:       0,
+                filename:     `${name.replace(/\s+/g, '_')}_Teachers_Day_Certificate.pdf`,
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2 },
+                jsPDF:        { unit: 'in', format: 'letter', orientation: 'landscape' }
+            };
+            html2pdf().set(opt).from(element).save();
+        }
+    </script>
+</body>
+</html>
